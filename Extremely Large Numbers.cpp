@@ -2,6 +2,7 @@
 #include <time.h>
 #include <vector>
 #include <fstream>
+#include <time.h>
 
 using namespace std;
 
@@ -338,11 +339,67 @@ bool operator!=(const int number1, const ExtremeNumber& number2) {
 
 
 int main(){
-    ofstream File;
-    File.open("Numbers.txt");
+    fstream File;
+    
     srand(time(NULL));
     ExtremeNumber number, number2, Cont;
-    number.Set("9");
+    string a, operation, b, result;
+    string files[] = {"addition/less_than_1000_chars.txt", "addition/1000_to_10000_chars.txt", "addition/10000_to_100000_chars.txt", "addition/100000_plus_chars.txt", "substraction/less_than_1000_chars.txt", "substraction/1000_to_10000_chars.txt", "substraction/10000_to_100000_chars.txt", "substraction/100000_plus_chars.txt", "multiplication/less_than_1000_chars.txt", "multiplication/1000_to_10000_chars.txt", "multiplication/10000_to_100000_chars.txt", "multiplication/100000_plus_chars.txt"};
+        for(int j = 0; j<12;++j){
+        File.open("large_number_test_cases/" + files[j]);
+        cout << "Test case: " << files[j] << "\n";
+        cout << File.good() << "\n";
+        auto startTime = clock();
+        for(int i = 0; i<10; ++i){
+            File >> a >> operation >> b >> result;
+            //cout << a << " " << operation << " " << b << "\n";
+            number.Set(a);
+            number2.Set(b);
+            for(int k = 0; k<1000; ++k){
+                if(operation == "+"){
+                    Cont = number + number2;
+                    //cout << Cont.GetString() << "\n";
+                }
+                else if(operation == "-"){
+                    Cont = number - number2;
+                    //cout << Cont.GetString() << "\n";
+                }
+                else if(operation == "*"){
+                    Cont = number * number2;
+                    //cout << Cont.GetString() << "\n";
+                }
+                else{
+                    cout << "Error: unknown operation\n";
+                }
+            }
+            if(result == Cont.GetString()){
+                //cout << i <<": OK\n";
+            }
+            else{
+                cout << "Error\n";
+            }
+        }
+        auto stopTime = clock();
+        cout << "Time: " << (stopTime - startTime) << "\n";
+        File.close();
+    }
+    /*else if(operation == "/"){
+        Cont = number / number2;
+        cout << Cont.GetString() << "\n";
+    }
+    else if(operation == "%"){
+        Cont = number % number2;
+        cout << Cont.GetString() << "\n";
+    }
+    else if(operation == "^"){
+        Cont = number ^ number2;
+        cout << Cont.GetString() << "\n";
+    }/**/
+    
+    return 0;
+}
+//   
+    /*number.Set("9");
     number2.Set("11");
     Cont.Set("-1");
     Cont -= number2;
@@ -389,7 +446,7 @@ int main(){
         cout << "i = " << i << "\n";
         Number.Print();
         Number = Cont;
-    }*/
+    }
 
     return 0;
-}
+}*/

@@ -1,5 +1,6 @@
 .vscode/settings.json
 .vscode/tasks.json
 Numbers.txt
-Extremely Large Numbers.exe
 Extremely Large Numbers.o
+large_number_test_cases
+Extremely Large Numbers.exe
